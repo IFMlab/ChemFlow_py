@@ -31,7 +31,6 @@ source ~/.bashrc
 __*Remark*__ : make sure the script you want to run are executables:
 ```
 chmod +x your_path_to_ChemFlow_py/bin/ChemFlow.py
-chmod +x your_path_to_ChemFlow_py/bin/ChemScreen.py
 chmod +x your_path_to_ChemFlow_py/modules/bound_shape.py
 ```
 ## Step 2 - Install Anaconda3 and set the environment
