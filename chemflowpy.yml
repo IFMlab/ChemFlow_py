@@ -1,0 +1,34 @@
+name: chemflowpy
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - autodock-vina
+  - mgltools
+  - pyparsing
+  - numpy
+  - openbabel
+  - pandas
+  - pip
+  - scipy
+  - matplotlib
+  - parmed
+  - ambertools
+  - rdkit
+  - ipykernel
+  - ipywidgets
+  - ocl-icd-system 
+  - pip:
+    - alive-progress
+    - networkx==2.3
+    - MDAnalysis
+    - nglview
+    - pytraj
+    - jupyter
+    - sklearn
+    - ray
+    - h5py
+
+
