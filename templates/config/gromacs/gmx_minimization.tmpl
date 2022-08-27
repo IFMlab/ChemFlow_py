@@ -1,0 +1,7 @@
+{gmx} editconf -f complex.pdb -o complex.gro -bt triclinic -box 90 90 120 -d 1.2
+{gmx} solvate -cp complex.gro -cs spc216.gro -p topol-complex.top -o solv.gro
+{gmx} grompp -f MDP/ions.mdp -c solv.gro -p topol-complex.top -o ions.tpr -maxwarn 2
+echo "15" | {gmx} genion -s ions.tpr -o solv_ions.gro -p topol-complex.top -pname SOD -nname CLA -neutral -conc 0.150 
+{gmx} grompp -f MDP/mini.mdp -c solv_ions.gro -p topol-complex.top -o mini.tpr -maxwarn 2 -r complex.gro
+{gmx} mdrun -v -deffnm mini
+echo "4\n 0" | {gmx} trjconv -f mini.gro -s mini.tpr -pbc mol -center -o mini-wrap.xtc

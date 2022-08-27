@@ -1,0 +1,8 @@
+{gmx} mdrun -v -deffnm mini
+{gmx}  grompp  -f MDP/nvt.mdp -c mini.gro -p topol-complex.top -o nvt.tpr -maxwarn 1
+{gmx} mdrun -s nvt.tpr -deffnm nvt -v 
+{gmx}  grompp  -f MDP/npt.mdp -c nvt.gro -p topol-complex.top -o npt.tpr -maxwarn 1
+{gmx} mdrun -s npt.tpr -deffnm npt -v
+{gmx}  grompp   -f MDP/prod.mdp -c npt.gro -t npt.cpt -p topol-complex.top -o prod.tpr -maxwarn 1
+{gmx}  mdrun -s prod.tpr -deffnm prod  -v 
+echo "4\n 0" | {gmx} trjconv -f prod.xtc -s prod.tpr -pbc mol -center  -o prod-wrap.xtc

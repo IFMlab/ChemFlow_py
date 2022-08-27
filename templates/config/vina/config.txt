@@ -1,0 +1,21 @@
+#CENTER DEFINITION
+receptor=../receptor.pdbqt
+ligand=ligand.pdbqt
+
+center_x={center[0]}
+center_y={center[1]}
+center_z={center[2]}
+
+#SIZE BOX
+
+size_x={size[0]}
+size_y={size[1]}
+size_z={size[2]}
+
+#OTHER PARAMETERS
+energy_range={energy_range}
+exhaustiveness={exhaustiveness}
+num_modes={n_poses}
+out=output.pdbqt 
+log=output.log 
+

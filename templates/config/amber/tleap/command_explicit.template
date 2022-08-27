@@ -1,0 +1,17 @@
+# generate ionized_solvated.prmtop
+$(which tleap) -f ../tleap_water.in > water.job
+    # extract the number of water molecules
+WAT=$(grep -c 'WAT' ionized_solvated.prmtop)
+    # write the number of water molecule in water.dat
+eval echo "${WAT}" > water.dat
+    # calculate the total number of ions, Cl- and Na+
+nsalt=$(awk -v R=0.0187 -v C=0.15 -v WAT=$WAT 'BEGIN{print R*C*WAT}')
+ncl=$(awk -v nsalt=$nsalt 'BEGIN{print int(nsalt)}')
+nna=$(awk -v nsalt=$nsalt 'BEGIN{print int(nsalt)}')
+    # insert the number of ions in tleap_salt.in, one for each ions
+sed "s/nna/${nna}/g" ../tleap_salt.in >> ../tleap_salt-na.in
+sed "s/ncl/${ncl}/g" ../tleap_salt-na.in >> ../tleap_salt-tot.in
+    # delete intermediate files
+rm -rf ../tleap_salt-na.in
+    # run tleap to have ionized_solvated_salt
+$(which tleap) -f ../tleap_salt-tot.in > tleap.job

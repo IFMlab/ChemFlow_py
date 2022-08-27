@@ -1,0 +1,29 @@
+#include "charmm36-feb2021.ff/forcefield.itp"
+
+; additional params for the molecule
+#include "charmm36-feb2021.ff/MOL.prm"
+
+#include "charmm36-feb2021.ff/MOL.itp"
+#include "charmm36-feb2021.ff/receptor.itp"
+#include "charmm36-feb2021.ff/SOD.itp"
+#include "charmm36-feb2021.ff/CLA.itp"
+#include "charmm36-feb2021.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct		 fcx		fcy		   fcz
+   1	1		1000	   1000		  1000
+#endif
+
+; Include topology for ions
+#include "charmm36-feb2021.ff/ions.itp"
+
+[ system ]
+; Name
+mol
+
+[ molecules ]
+; Compound		  #mols
+receptor                    1
+MOL			1                

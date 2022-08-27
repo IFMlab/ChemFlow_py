@@ -1,0 +1,3 @@
+gromber topol-complex.top prod.gro radii mbondi2
+parmout prod.prmtop
+go

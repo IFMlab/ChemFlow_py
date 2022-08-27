@@ -1,0 +1,24 @@
+## GENERIC SECTION
+autodock_parameter_version 4.2 # used by autodock to validate parameter set
+outlev adt 			# diagnostic output level
+intelec 			# calculate internal electrostatics
+
+## LIGAND-SPECIFIC SECTION
+unbound_model bound  		# state of unbound ligand
+ligand_types A C H HD N NA OA S SA 	# atoms types in ligand
+fld receptor.maps.fld 		# grid_data_file
+map receptor.A.map 			# atom-specific affinity map
+map receptor.C.map 			# atom-specific affinity map
+map receptor.H.map 			# atom-specific affinity map
+map receptor.HD.map			# atom-specific affinity map
+map receptor.N.map 			# atom-specific affinity map
+map receptor.NA.map 		# atom-specific affinity map
+map receptor.OA.map 		# atom-specific affinity map
+map receptor.S.map 			# atom-specific affinity map
+map receptor.SA.map 		# atom-specific affinity map
+elecmap receptor.e.map 		# electrostatics map
+desolvmap receptor.d.map 		# desolvation map
+move ligand.pdbqt 			# small molecule
+
+## EVALUATE LIGAND ENERGY in RECEPTOR SECTION
+epdb 				# small molecule to be evaluated

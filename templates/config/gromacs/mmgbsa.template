@@ -1,0 +1,7 @@
+Input file for running GB7
+&general
+   use_sander=1,verbose=1,keep_files=0,interval=1,
+/
+&gb
+  igb=7, saltcon=0.150
+/

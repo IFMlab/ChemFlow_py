@@ -1,0 +1,8 @@
+parm min.prmtop
+trajin mini.gro 
+strip :SOL,SOD,CLA
+autoimage familiar
+rms mass first
+trajout min.nc
+go
+quit

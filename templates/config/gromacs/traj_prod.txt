@@ -1,0 +1,8 @@
+parm prod.prmtop
+trajin prod-wrap.xtc
+strip :SOL,SOD,CLA
+autoimage familiar
+rms mass first
+trajout prod.nc
+go
+quit
