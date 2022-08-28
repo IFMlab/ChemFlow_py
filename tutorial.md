@@ -23,7 +23,7 @@ Otherwise, all the files all already available from [this archive](http://dude.d
 
 Extract `actives_final.mol2.gz` and `decoys_final.mol2.gz`
 
-The file we are going to use are:
+The files we are going to use are:
 
 | File                  | Description                                                    |
 |-----------------------|----------------------------------------------------------------|
@@ -49,13 +49,13 @@ import random
 # read the ligand and decoys as input
 actives_dict = cf.read_ligands('actives_final.mol2')
 decoys_dict = cf.read_ligands('decoys_final.mol2')
-ligand_dict = {actives_dict, decoys_dict}
+ligand_dict = dict(actives_dict, **decoys_dict)
 # select 10 actives and 30 decoys randomly
 random_act = random.sample(list(actives_dict.keys()), k=5)
 random_dec = random.sample(list(decoys_dict.keys()), k=25)
-random_ligand = random_act + random_dec 
+random_ligand = random_act + random_dec
 # create the compounds.mol2 file
-compunds_text= '\n'.join([complete_dict[key] for key in random_ligand])
+compunds_text= '\n'.join([ligand_dict[key] for key in random_ligand])
 with open('compounds.mol2', 'w') as file:
     file.write(compunds_text)
 ```
@@ -82,7 +82,7 @@ __*Using a reference ligand:*__
 
 - command line:
   ```
-    chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --postprocess -k 3`
+    chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --postprocess -k 3
   ```
   - python interpreter/script
   
@@ -98,20 +98,20 @@ __*Manual coordinates:*__
 
 To see the coordinates of the reference ligand center use (the program uses a default padding of 15 Å):
 ```
-python $(which bound_shape.py) reference_ligand.mol2 --shape both 
+python $(which bound_shape.py) crystal_ligand.mol2 --shape both 
 ```
 
 Substitute 'x y z' with the  coordinates that you want
 - command line:
   ```
-  chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --center x y z --postprocess -k 3`
+  chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --center x y z --postprocess -k 3
   ```
   - python interpreter/script
   
   ```
   import chemflow as cf
   docking = cf.Dock('receptor.pdb', 'compounds.mol2', program='smina', protocol='smina_test')
-  docking.data['center] = [x, y, z]
+  docking.data['center'] = [x, y, z]
   docking.setup(overwrite=False)
   docking.run(computed=True, keep_poses=3)
   ```
@@ -161,14 +161,14 @@ __*The procedure is the same as for docking, we just use docked structures and s
 
 - command line:
   ```
-  chemflow.py rescore -r receptor.pdb -l smina/computed_ligands.mol2 -p plants --scoring plp --protocol plp_rescoring --crystal crystal_ligand.mol2
+  chemflow.py rescore -r receptor.pdb -l smina_test/computed_ligands.mol2 -p plants --scoring plp --protocol plp_rescoring --crystal crystal_ligand.mol2
   ```
 
   - python interpreter/script
   
   ```
   import chemflow as cf
-  rescoring = cf.Rescore('receptor.pdb', 'smina/computed_ligands.mol2', program='plants', protocol='plp_rescoring')
+  rescoring = cf.Rescore('receptor.pdb', 'smina_test/computed_ligands.mol2', program='plants', protocol='plp_rescoring')
   rescoring.bounding_shape('crystal_ligand.mol2', shape='both')
   rescoring.data['scoring'] = 'plp'
   rescoring.setup(overwrite=False)
@@ -194,9 +194,9 @@ ans, ass, ecr, rbn, rbr, rbv, z_score
 
 Consensus is supported by __*the python interpreter only:*__
 ```
-import chemfloww as cf
+import chemflow as cf
 protocol_list = ['smina_test', 'plants_test', ...]
-cf.consensus(protocol_list, methods=['zscore', 'rbv'])
+cf.consensus(protocol_list, methods=['z_score', 'rbv'])
 ```
 
 If you have the list with all the decoys, you can analyse the results of docking, rescoring and consensus:
@@ -204,5 +204,5 @@ If you have the list with all the decoys, you can analyse the results of docking
 import chemflow as cf
 decoy_list = cf.ligand_list('decoys_final.mol2')
 protocol_list = ['smina_test', 'plants_test', ..., 'plp_rescoring', ...]
-analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv']):
+cf.analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv'])
 ```
