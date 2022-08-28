@@ -80,7 +80,7 @@ __*Using a reference ligand:*__
 
 - command line:
   ```
-    ChemFlow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --postprocess -k 3`
+    chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --postprocess -k 3`
   ```
   - python interpreter/script
   
@@ -102,7 +102,7 @@ python $(which bound_shape.py) reference_ligand.mol2 --shape both
 Substitute 'x y z' with the  coordinates that you want
 - command line:
   ```
-  ChemFlow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --center x y z --postprocess -k 3`
+  chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --center x y z --postprocess -k 3`
   ```
   - python interpreter/script
   
@@ -119,7 +119,7 @@ __*Remark:*__
 Each docking program has different settings, parameters and defualt values. To check them type:
 
 ```
-ChemFlow.py dock -p program_name
+chemflow.py dock -p program_name --help
 ```
 
 __*Results:*__
@@ -159,7 +159,7 @@ __*The procedure is the same as for docking, we just use docked structures and s
 
 - command line:
   ```
-  ChemFlow.py rescore -r receptor.pdb -l smina/computed_ligands.mol2 -p plants --scoring plp --protocol plp_rescoring --crystal crystal_ligand.mol2
+  chemflow.py rescore -r receptor.pdb -l smina/computed_ligands.mol2 -p plants --scoring plp --protocol plp_rescoring --crystal crystal_ligand.mol2
   ```
 
   - python interpreter/script
@@ -175,7 +175,7 @@ __*The procedure is the same as for docking, we just use docked structures and s
   
 __*Advice:*__
 
-Have a look at `ChemFlow rescore -p program_name --help` to see the full options
+Have a look at `chemflow.py rescore -p program_name --help` to see the full options
 
 __*Remark:*__
 
