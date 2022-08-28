@@ -94,4 +94,4 @@ If you have the list with all the decoys, you can analyse the results of docking
 import chemflow as cf
 decoy_list = cf.ligand_list('decoys_final.mol2')
 protocol_list = ['autodock', 'smina', 'plants', 'plp_rescoring']
-cf.analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv']):
+cf.analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv'])
