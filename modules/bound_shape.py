@@ -8,7 +8,6 @@ __email__ = "cbouysset@unice.fr"
 
 # Brief: This script will read a mol2 file and return the center and radius/size of the smallest shape containing all the atoms
 
-from __future__ import print_function
 from argparse import ArgumentParser
 from math import sqrt
 import sys, re
