@@ -3,4 +3,4 @@ conda activate chemflowpy
 conda install -c bioconda mgltools
 conda install -c conda-forge openbabel
 conda install -c conda-forge ambertools
-pip install numpy  pandas  scipy  matplotlib  parmed  rdkit  alive-progress  networkx==2.3  MDAnalysis  nglview  pytraj  jupyter  sklearn ipykernel ipywidgets ray h5py
+pip3 install numpy  pandas  scipy  matplotlib  parmed  rdkit  alive-progress  networkx==2.3  MDAnalysis  nglview  pytraj  jupyter  sklearn ipykernel ipywidgets ray h5py
