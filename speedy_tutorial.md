@@ -32,13 +32,13 @@ import random
 # read the ligand and decoys as input
 actives_dict = cf.read_ligands('actives_final.mol2')
 decoys_dict = cf.read_ligands('decoys_final.mol2')
-ligand_dict = {actives_dict, decoys_dict}
+ligand_dict = dict(actives_dict, **decoys_dict)
 # select 10 actives and 30 decoys randomly
 random_act = random.sample(list(actives_dict.keys()), k=5)
 random_dec = random.sample(list(decoys_dict.keys()), k=25)
-random_ligand = random_act + random_dec 
+random_ligand = random_act + random_dec
 # create the compounds.mol2 file
-compunds_text= '\n'.join([complete_dict[key] for key in random_ligand])
+compunds_text= '\n'.join([ligand_dict[key] for key in random_ligand])
 with open('compounds.mol2', 'w') as file:
     file.write(compunds_text)
 ```
@@ -84,7 +84,7 @@ Amber and Gromacs are very punctilious about the pdb structure of the protein. Y
 Consensus approach is based on the combination of the different ranking obtained by docking.
 
 ```
-import chemfloww as cf
+import chemflow as cf
 protocol_list = ['autodock', 'smina', 'plants']
 cf.consensus(protocol_list, methods=['zscore', 'rbv', 'ass'])
 ```
@@ -94,4 +94,4 @@ If you have the list with all the decoys, you can analyse the results of docking
 import chemflow as cf
 decoy_list = cf.ligand_list('decoys_final.mol2')
 protocol_list = ['autodock', 'smina', 'plants', 'plp_rescoring']
-analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv']):
+cf.analysis(protocol_list, decoy_list, consensus_deep=3, methods=['zscore', 'rbv']):
