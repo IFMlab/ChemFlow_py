@@ -171,8 +171,10 @@ if __name__ == '__main__':
 
 	if args.shape == 'box' or args.shape == 'both':
 		center, size = get_shape(args.inputfile, 'box', args.padding)
-		print('Center, size:')
-		print(' '.join(['{:.3f}'.format(x) for x in center + size]))
+		print('Center:')
+		print(' '.join(['{:.3f}'.format(x) for x in center]))
+		print('Size:')
+		print(' '.join(['{:.3f}'.format(x) for x in size]))
 		if args.pymol:
 			print('pseudoatom a1, pos={}'.format([center[0]+size[0],center[1]+size[1],center[2]+size[2]]))
 			print('pseudoatom a2, pos={}'.format([center[0]+size[0],center[1]+size[1],center[2]-size[2]]))
@@ -196,8 +198,11 @@ if __name__ == '__main__':
 			print('distance d63, a3, a6')
 	if args.shape == 'sphere' or args.shape == 'both':
 		center, radius = get_shape(args.inputfile, 'sphere', args.padding)
-		print('Center, radius:')
-		print(' '.join(['{:.3f}'.format(x) for x in center + [radius]]))
+		if args.shape != 'both':
+		    print('Center, radius:')
+		    print(' '.join(['{:.3f}'.format(x) for x in center ]))
+		print('Radius:')
+		print(' '.join(['{:.3f}'.format(x) for x in [radius]]))
 		if args.pymol:
 			print('pseudoatom boundingsphere, pos={}, vdw={}'.format(center, radius))
 			print('show spheres, boundingsphere')
