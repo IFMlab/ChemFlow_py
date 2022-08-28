@@ -21,6 +21,8 @@ For this tutorial, you will need some files contained in this [DUD-E page](http:
 Otherwise, all the files all already available from [this archive](http://dude.docking.org/targets/cdk2/cdk2.tar.gz)
 (untar the file cdk2 archive and ligand/decoys archives contained)
 
+Extract `actives_final.mol2.gz` and `decoys_final.mol2.gz`
+
 The file we are going to use are:
 
 | File                  | Description                                                    |
