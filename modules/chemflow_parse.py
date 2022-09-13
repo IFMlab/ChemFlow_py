@@ -46,9 +46,9 @@ def dockflow_parse(parser=None):
                       metavar='dock/rescore/consensus',
                       choices=('dock', 'rescore', 'consensus'), default='dock',
                       help='Compute docking, rescoring or consensus ranking')
-    parsed, unknown = parser.parse_known_args()
     required_mol = True
-    if parsed.method not in ('dock', 'rescore'):
+    print(sys.argv)
+    if sys.argv[1] == 'consensus':
         required_mol = False
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
@@ -174,32 +174,3 @@ DockFlow summary:
       KEEP POSES: {input_var['k_poses']}''')
 
     print('-------------------------------------------------------------------------------\n')
-
-
-#######################
-# SCOREFLOW FUNCTIONS #
-#######################
-
-
-# the radius of the sphere is half of the average of the box size
-def size_to_radius(size_list):
-    return sum(size_list) / len(size_list) / 2
-
-
-# a cubic box is generated, the sphere can be inscribed o circumscribe the box
-def radius_to_size(radius, mode='inscribed'):
-    if mode == 'inscribed':
-        return [radius * 2, radius * 2, radius * 2]
-    elif mode == 'circumscribed':
-        return [radius / math.sqrt(3), radius / math.sqrt(3), radius / math.sqrt(3)]
-
-
-def scoreflow_parse():
-    chemflow_header()
-    # create a parser for command line
-    parser = argparse.ArgumentParser(add_help=False, formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument("--docked",
-                        metavar='DIR',
-                        help='Name of the protocol directory, to parse the docking data')
-    var = dockflow_parse(parser)
-    return var
