@@ -46,16 +46,20 @@ def dockflow_parse(parser=None):
                       metavar='dock/rescore/consensus',
                       choices=('dock', 'rescore', 'consensus'), default='dock',
                       help='Compute docking, rescoring or consensus ranking')
+    parsed, unknown = parser.parse_known_args()
+    required_mol = True
+    if parsed.method not in ('dock', 'rescore'):
+        required_mol = False
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
                       type=cf.check_file,
                       help='Receptor file in mol2 format',
-                      required=True)
+                      required=required_mol)
     main.add_argument("-l", "--ligand",
                       metavar='MOL2',
                       type=cf.check_file,
                       help='Ligands file in mol2 format',
-                      required=True)
+                      required=required_mol)
     main.add_argument("-p", "--program",
                       metavar='STRING',
                       default='smina',
@@ -114,6 +118,7 @@ def dockflow_parse(parser=None):
     consens.add_argument('-pl', '--protocol_list',
                          nargs='+',
                          metavar='DIR',
+                         required=not required_mol,
                          help='The list of protocols to combine in consensus')
     consens.add_argument("-cm", "--consensus_method",
                          metavar='STR',
