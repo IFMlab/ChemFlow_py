@@ -43,9 +43,9 @@ def dockflow_parse(parser=None):
                             help='show this help message and exit. Add -p PROGRAM to print the help for the program data')
     main = parser.add_argument_group('[ Main ]')
     main.add_argument('method',
-                      metavar='dock/rescore',
-                      choices=('dock', 'rescore'), default='dock',
-                      help='Compute Docking or rescoring')
+                      metavar='dock/rescore/consensus',
+                      choices=('dock', 'rescore', 'consensus'), default='dock',
+                      help='Compute docking, rescoring or consensus ranking')
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
                       type=cf.check_file,
@@ -109,14 +109,26 @@ def dockflow_parse(parser=None):
                      metavar='File',
                      type=cf.check_file,
                      help='File containing the header text for the HPC submission')
+    # consensus options
+    consens = parser.add_argument_group('[ Consensus ]')
+    consens.add_argument('-pl', '--protocol_list',
+                         nargs='+',
+                         metavar='DIR',
+                         help='The list of protocols to combine in consensus')
+    consens.add_argument("-cm", "--consensus_method",
+                         metavar='STR',
+                         nargs='+',
+                         default=['z_score', 'rbv'],
+                         help='Consensus method to combine the docking rankings')
+
     progr = parser.add_argument_group('[ Program Data ]')
     if '-p' in sys.argv:
         ind = list(sys.argv).index('-p')
-        method = importlib.import_module(sys.argv[ind+1])
+        method = importlib.import_module(sys.argv[ind + 1])
         method.parse(progr)
     elif '--program' in sys.argv:
         ind = list(sys.argv).index('--program')
-        method = importlib.import_module(sys.argv[ind+1])
+        method = importlib.import_module(sys.argv[ind + 1])
         method.parse(progr)
     var = vars(parser.parse_args())
     return var

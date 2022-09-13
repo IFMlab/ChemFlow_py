@@ -192,14 +192,21 @@ The consensus method supported are:
 \
 ans, ass, ecr, rbn, rbr, rbv, z_score
 
-Consensus is supported by __*the python interpreter only:*__
-```
-import chemflow as cf
-protocol_list = ['smina_test', 'plants_test', ...]
-cf.consensus(protocol_list, methods=['z_score', 'rbv'])
-```
+To run consensus: 
+- command line:
+  ```
+    chemflow.py consensus -pl smina_test plants_test -cm z_score rbv
+  ```
 
-If you have the list with all the decoys, you can analyse the results of docking, rescoring and consensus:
+- python interpreter/script
+  ```
+  import chemflow as cf
+  protocol_list = ['smina_test', 'plants_test', ...]
+  cf.consensus(protocol_list, methods=['z_score', 'rbv'])
+  ```
+
+If you have the list with all the decoys, you can analyse the results of docking, rescoring and consensus with
+the python interpreter:
 ```
 import chemflow as cf
 decoy_list = cf.ligand_list('decoys_final.mol2')

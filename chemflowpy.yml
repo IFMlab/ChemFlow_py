@@ -18,8 +18,7 @@ dependencies:
   - ambertools
   - rdkit
   - ipykernel
-  - ipywidgets
-  - ocl-icd-system 
+  - ipywidgets 
   - pip:
     - alive-progress
     - networkx==2.3

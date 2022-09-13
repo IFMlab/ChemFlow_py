@@ -1330,10 +1330,13 @@ if __name__ == "__main__":
         docking = Dock(var['receptor'], var['ligand'], program=var['program'], protocol=var['protocol'],
                           verbose=var['verbose'], header=var['header'], scheduler=var['job_scheduler'],
                           molecule_job=var['molecule_job'])
-    else:
+    elif var['method'] == 'rescore':
         docking = Rescore(var['receptor'], var['ligand'], program=var['program'], protocol=var['protocol'],
                           verbose=var['verbose'], header=var['header'], scheduler=var['job_scheduler'],
                           molecule_job=var['molecule_job'])
+    elif var['method'] == 'consensus':
+        consensus(var['protocol_list'], var['consensus_method'])
+        exit()
     if var['load']:
         previous = load(var['load'], n=0)
         docking.data = previous.data
