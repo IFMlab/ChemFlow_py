@@ -47,8 +47,7 @@ def dockflow_parse(parser=None):
                       choices=('dock', 'rescore', 'consensus'), default='dock',
                       help='Compute docking, rescoring or consensus ranking')
     required_mol = True
-    print(sys.argv)
-    if sys.argv[1] == 'consensus':
+    if len(sys.argv) > 0 and sys.argv[1] == 'consensus':
         required_mol = False
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
