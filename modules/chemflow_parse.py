@@ -43,11 +43,11 @@ def dockflow_parse(parser=None):
                             help='show this help message and exit. Add -p PROGRAM to print the help for the program data')
     main = parser.add_argument_group('[ Main ]')
     main.add_argument('method',
-                      metavar='dock/rescore/consensus',
-                      choices=('dock', 'rescore', 'consensus'), default='dock',
+                      metavar='dock/rescore/consensus/postprocess',
+                      choices=('dock', 'rescore', 'consensus', 'postprocess'), default='dock',
                       help='Compute docking, rescoring or consensus ranking')
     required_mol = True
-    if len(sys.argv) > 0 and sys.argv[1] == 'consensus':
+    if len(sys.argv) > 0 and sys.argv[1] not in ('dock', 'rescore'):
         required_mol = False
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
@@ -89,15 +89,9 @@ def dockflow_parse(parser=None):
     optional.add_argument("--load",
                           metavar='DIR',
                           help='Directory with a computed protocol were to load program data')
-    # postprocessing
-    post = parser.add_argument_group('[ PostProcessing ]')
-    post.add_argument("--postprocess",
-                      action='store_true',
-                      help='Produce a mol2 file with the computed poses')
-    post.add_argument('-k', "--k_poses",
-                      metavar='INT',
-                      type=int, default=3,
-                      help='How many poses to keep for postprocessing')
+    optional.add_argument("--no_postprocess",
+                          action='store_false',
+                          help="Don't produce a mol2 file with the computed poses")
     # Parallel execution
     hpc = parser.add_argument_group('[ High Performance Computing ]')
     hpc.add_argument('-j', "--job_scheduler",
@@ -112,9 +106,20 @@ def dockflow_parse(parser=None):
                      metavar='File',
                      type=cf.check_file,
                      help='File containing the header text for the HPC submission')
+    # postprocessing
+    post = parser.add_argument_group('[ PostProcessing ]')
+    post.add_argument('-pl', '--postprocess_list',
+                      nargs='+',
+                      metavar='DIR',
+                      required=not required_mol,
+                      help='The list of protocols to postprocess')
+    post.add_argument('-k', "--k_poses",
+                      metavar='INT',
+                      type=int, default=3,
+                      help='How many poses to keep for postprocessing')
     # consensus options
     consens = parser.add_argument_group('[ Consensus ]')
-    consens.add_argument('-pl', '--protocol_list',
+    consens.add_argument('-cl', '--consensus_list',
                          nargs='+',
                          metavar='DIR',
                          required=not required_mol,
@@ -169,7 +174,7 @@ DockFlow summary:
         RUN ONLY: {input_var["run_only"]}
 
 [ PostProcess]
-     POSTPROCESS: {input_var['postprocess']}
+     POSTPROCESS: {not input_var['no_postprocess']}
       KEEP POSES: {input_var['k_poses']}''')
 
     print('-------------------------------------------------------------------------------\n')

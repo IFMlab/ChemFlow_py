@@ -1335,7 +1335,12 @@ if __name__ == "__main__":
                           verbose=var['verbose'], header=var['header'], scheduler=var['job_scheduler'],
                           molecule_job=var['molecule_job'])
     elif var['method'] == 'consensus':
-        consensus(var['protocol_list'], var['consensus_method'])
+        consensus(var['consensus_list'], var['consensus_method'])
+        exit()
+    elif var['method'] == 'postprocess':
+        for protocol in var['postprocess_list']:
+            pp_protocol = load(protocol)
+            pp_protocol.postprocess(keep_poses=var['keep_poses=3'])
         exit()
     if var['load']:
         previous = load(var['load'], n=0)
@@ -1363,7 +1368,7 @@ if __name__ == "__main__":
         exit()
     computed = False
     k_poses = var['k_poses']
-    if var['postprocess']:
+    if not var['no_postprocess']:
         computed = True
         k_poses = var['k_poses']
     docking.run(keep_poses=k_poses, computed=computed)
