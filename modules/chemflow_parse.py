@@ -90,7 +90,7 @@ def dockflow_parse(parser=None):
                           metavar='DIR',
                           help='Directory with a computed protocol were to load program data')
     optional.add_argument("--no_postprocess",
-                          action='store_false',
+                          action='store_true',
                           help="Don't produce a mol2 file with the computed poses")
     # Parallel execution
     hpc = parser.add_argument_group('[ High Performance Computing ]')
