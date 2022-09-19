@@ -1204,7 +1204,7 @@ class Step:
         # creating a list with the csv text-line
         for pose, E in enumerate(lig_energy):
             name = ligand.split('_conf_')[0]
-            if self.type == 'rescore':
+            if self.type == 'rescore' and len(ligand.split('_conf_'))>1:
                 pose = int(ligand.split('_conf_')[1]) - 1
             results.append(
                 [self.program, self.data['scoring'], self.name, r_name, name, pose + 1, E])
