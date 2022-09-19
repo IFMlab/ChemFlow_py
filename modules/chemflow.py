@@ -1340,7 +1340,7 @@ if __name__ == "__main__":
     elif var['method'] == 'postprocess':
         for protocol in var['postprocess_list']:
             pp_protocol = load(protocol)
-            pp_protocol.postprocess(keep_poses=var['keep_poses'])
+            pp_protocol.postprocess(keep_poses=var['k_poses'])
         exit()
     if var['load']:
         previous = load(var['load'], n=0)
