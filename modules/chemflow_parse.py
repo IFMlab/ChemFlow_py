@@ -47,6 +47,7 @@ def dockflow_parse(parser=None):
                       choices=('dock', 'rescore', 'consensus', 'postprocess'), default='dock',
                       help='Compute docking, rescoring or consensus ranking')
     required_mol = True
+    required_consensus = False
     if len(sys.argv) > 0 and sys.argv[1] not in ('dock', 'rescore'):
         required_mol = False
         if sys.argv[1] == 'consensus':
