@@ -49,6 +49,9 @@ def dockflow_parse(parser=None):
     required_mol = True
     if len(sys.argv) > 0 and sys.argv[1] not in ('dock', 'rescore'):
         required_mol = False
+        if sys.argv[1] == 'consensus':
+            required_consensus = True
+            
     main.add_argument("-r", "--receptor",
                       metavar='MOL2/PDB',
                       type=cf.check_file,
@@ -111,7 +114,6 @@ def dockflow_parse(parser=None):
     post.add_argument('-pl', '--postprocess_list',
                       nargs='+',
                       metavar='DIR',
-                      required=not required_mol,
                       help='The list of protocols to postprocess')
     post.add_argument('-k', "--k_poses",
                       metavar='INT',
@@ -122,7 +124,7 @@ def dockflow_parse(parser=None):
     consens.add_argument('-cl', '--consensus_list',
                          nargs='+',
                          metavar='DIR',
-                         required=not required_mol,
+                         required=required_consensus,
                          help='The list of protocols to combine in consensus')
     consens.add_argument("-cm", "--consensus_method",
                          metavar='STR',
