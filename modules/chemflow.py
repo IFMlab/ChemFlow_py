@@ -1366,9 +1366,6 @@ if __name__ == "__main__":
         shutil.copyfile(var['config'], docking.protocol + module.config_file_name)
     if var['write_only']:
         exit()
-    computed = False
-    k_poses = var['k_poses']
     if not var['no_postprocess']:
-        computed = True
-        k_poses = var['k_poses']
-    docking.run(keep_poses=k_poses, computed=computed)
+        docking.run(keep_poses=var['k_poses'], computed=True)
+
