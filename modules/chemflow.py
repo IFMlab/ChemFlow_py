@@ -512,15 +512,14 @@ def dict_metrics(metric_dict, name, df_type, scores):
     return metric_dict
 
 
-## FIX DOCUMENTATION
 def methods_metrics(auc_dict, metrics_dict, folder='analysis/'):
     """
-    It takes a dictionary of AUC values and a folder name. Then creates a dataframe of the AUC values for each type of
-    ranking (docking, rescoring, consensus, ..). In the end, save the histogram distribution and the csv for each
-    ranking type in the specified folder. It automatically overwrites previous existing graphs/csv.
+    It takes a dictionary of AUCs and a dictionary of stored metrics, and saves the histogram to a file
 
     :param auc_dict: a dictionary of AUC values for each method
-    :param folder: the folder where the results are stored
+    :param metrics_dict: a dictionary of the metrics already stored. The keys are the names of the metrics, and the values
+                         are the values of the metrics
+    :param folder: the folder where the results are stored, defaults to analysis/ (optional)
     """
     df = pd.DataFrame.from_dict(auc_dict)
     type_set = {method for method in df['TYPE'] if method not in metrics_dict['METHOD']}
@@ -706,7 +705,7 @@ def print_dict(param, ind=0, hide=False):
             continue
         if hide and not param[key]:
             continue
-        txt = txt + ind * ' ' + key + (13 - len(key)) * ' ' + ': ' + print_dict(param[key], ind + 5)
+        txt = txt + ind * ' ' + str(key) + (13 - len(str(key))) * ' ' + ': ' + print_dict(param[key], ind + 5)
     return txt
 
 
