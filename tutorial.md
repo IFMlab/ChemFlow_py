@@ -84,7 +84,7 @@ __*Using a reference ligand:*__
   ```
     chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --crystal crystal_ligand.mol2 --postprocess -k 3
   ```
-  - python interpreter/script
+- python interpreter/script
   
   ```
   import chemflow as cf
@@ -106,7 +106,7 @@ Substitute 'x y z' with the  coordinates that you want
   ```
   chemflow.py dock -r receptor.pdb -l compounds.mol2 -p smina --protocol smina_test --center x y z --postprocess -k 3
   ```
-  - python interpreter/script
+- python interpreter/script
   
   ```
   import chemflow as cf
@@ -164,7 +164,7 @@ __*The procedure is the same as for docking, we just use docked structures and s
   chemflow.py rescore -r receptor.pdb -l smina_test/computed_ligands.mol2 -p plants --scoring plp --protocol plp_rescoring --crystal crystal_ligand.mol2
   ```
 
-  - python interpreter/script
+- python interpreter/script
   
   ```
   import chemflow as cf
